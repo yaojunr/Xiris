@@ -49,6 +49,18 @@ namespace XirisSDKtest1
                 _camera.BufferReady += _camera_BufferReady;
                 _camera.Start();
                 cameraReady.Text = "camera ready";
+                frameRate.Value = (decimal)_camera.RollingFrameRate;
+
+                if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
+                    pixelDepth.Text = "8 bits";
+                if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
+                    pixelDepth.Text = "12 bits";
+
+
+
+
+
+
 
             }
         }
