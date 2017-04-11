@@ -18,6 +18,7 @@ namespace XirisSDKtest1
     {
        // Camera _camera;
         static int i = 1;
+        static int n = 0;
         static bool picSave = false;
         public Form1()
         {
@@ -27,8 +28,7 @@ namespace XirisSDKtest1
         private void Form1_Load(object sender, EventArgs e)
         {
             CameraDetector.Instance.CameraDetected += CameraDetector_CameraDetected;
-
-            
+                        
         }
         private Camera _camera;
         void CameraDetector_CameraDetected(object sender, CameraDetector.CameraEventArgs e)
@@ -48,14 +48,22 @@ namespace XirisSDKtest1
             {
                 _camera.BufferReady += _camera_BufferReady;
                 _camera.Start();
-                cameraReady.Text = "camera ready";
-                frameRate.Value = (decimal)_camera.RollingFrameRate;
 
-                if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
-                    pixelDepth.Text = "8 bits";
-                if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
-                    pixelDepth.Text = "12 bits";
+                try
+                {
+                    cameraReady.Text = "camera ready";
+                    frameRate.Value = (decimal)_camera.RollingFrameRate;
 
+                    if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
+                        pixelDepth.Text = "8 bits";
+                    if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
+                        pixelDepth.Text = "12 bits";
+                
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error.Message);
+                }
 
 
 

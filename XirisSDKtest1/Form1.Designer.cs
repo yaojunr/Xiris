@@ -332,10 +332,13 @@
             // cameraReady
             // 
             this.cameraReady.AutoSize = true;
-            this.cameraReady.Location = new System.Drawing.Point(116, 13);
+            this.cameraReady.Font = new System.Drawing.Font("SimSun", 12F);
+            this.cameraReady.ForeColor = System.Drawing.Color.Red;
+            this.cameraReady.Location = new System.Drawing.Point(16, 557);
             this.cameraReady.Name = "cameraReady";
-            this.cameraReady.Size = new System.Drawing.Size(0, 12);
+            this.cameraReady.Size = new System.Drawing.Size(136, 16);
             this.cameraReady.TabIndex = 28;
+            this.cameraReady.Text = "camera not ready";
             // 
             // Form1
             // 
