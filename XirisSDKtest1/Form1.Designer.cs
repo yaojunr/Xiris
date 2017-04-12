@@ -30,20 +30,20 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.shutterModeText = new System.Windows.Forms.Label();
             this.gobalShutter = new System.Windows.Forms.RadioButton();
             this.rollShutter = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
+            this.frameRateText = new System.Windows.Forms.Label();
             this.pixelDepth = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.pixelDepthText = new System.Windows.Forms.Label();
+            this.triggerModeText = new System.Windows.Forms.Label();
             this.triggerMode = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.AOIText = new System.Windows.Forms.Label();
+            this.aoiTopText = new System.Windows.Forms.Label();
+            this.aoiRightText = new System.Windows.Forms.Label();
+            this.aoiBottomText = new System.Windows.Forms.Label();
             this.aoiBottom = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
+            this.aoiLeftText = new System.Windows.Forms.Label();
             this.aoiTop = new System.Windows.Forms.NumericUpDown();
             this.aoiSet = new System.Windows.Forms.Button();
             this.aoiReset = new System.Windows.Forms.Button();
@@ -78,14 +78,14 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // label1
+            // shutterModeText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "快门模式";
+            this.shutterModeText.AutoSize = true;
+            this.shutterModeText.Location = new System.Drawing.Point(12, 50);
+            this.shutterModeText.Name = "shutterModeText";
+            this.shutterModeText.Size = new System.Drawing.Size(53, 12);
+            this.shutterModeText.TabIndex = 2;
+            this.shutterModeText.Text = "快门模式";
             // 
             // gobalShutter
             // 
@@ -111,14 +111,14 @@
             this.rollShutter.UseVisualStyleBackColor = true;
             this.rollShutter.CheckedChanged += new System.EventHandler(this.rollShutter_CheckedChanged);
             // 
-            // label2
+            // frameRateText
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 125);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 12);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "帧频率（1-55FPS）";
+            this.frameRateText.AutoSize = true;
+            this.frameRateText.Location = new System.Drawing.Point(9, 125);
+            this.frameRateText.Name = "frameRateText";
+            this.frameRateText.Size = new System.Drawing.Size(107, 12);
+            this.frameRateText.TabIndex = 7;
+            this.frameRateText.Text = "帧频率（1-55FPS）";
             // 
             // pixelDepth
             // 
@@ -132,23 +132,23 @@
             this.pixelDepth.TabIndex = 8;
             this.pixelDepth.SelectedIndexChanged += new System.EventHandler(this.pixelDepth_SelectedIndexChanged);
             // 
-            // label3
+            // pixelDepthText
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 193);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "像素位深";
+            this.pixelDepthText.AutoSize = true;
+            this.pixelDepthText.Location = new System.Drawing.Point(9, 193);
+            this.pixelDepthText.Name = "pixelDepthText";
+            this.pixelDepthText.Size = new System.Drawing.Size(53, 12);
+            this.pixelDepthText.TabIndex = 9;
+            this.pixelDepthText.Text = "像素位深";
             // 
-            // label4
+            // triggerModeText
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 267);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "触发模式";
+            this.triggerModeText.AutoSize = true;
+            this.triggerModeText.Location = new System.Drawing.Point(9, 267);
+            this.triggerModeText.Name = "triggerModeText";
+            this.triggerModeText.Size = new System.Drawing.Size(53, 12);
+            this.triggerModeText.TabIndex = 11;
+            this.triggerModeText.Text = "触发模式";
             // 
             // triggerMode
             // 
@@ -163,41 +163,41 @@
             this.triggerMode.TabIndex = 10;
             this.triggerMode.SelectedIndexChanged += new System.EventHandler(this.triggerMode_SelectedIndexChanged);
             // 
-            // label5
+            // AOIText
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 343);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 12);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "AOI";
+            this.AOIText.AutoSize = true;
+            this.AOIText.Location = new System.Drawing.Point(11, 343);
+            this.AOIText.Name = "AOIText";
+            this.AOIText.Size = new System.Drawing.Size(23, 12);
+            this.AOIText.TabIndex = 12;
+            this.AOIText.Text = "AOI";
             // 
-            // label6
+            // aoiTopText
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(65, 343);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(17, 12);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "高";
+            this.aoiTopText.AutoSize = true;
+            this.aoiTopText.Location = new System.Drawing.Point(65, 343);
+            this.aoiTopText.Name = "aoiTopText";
+            this.aoiTopText.Size = new System.Drawing.Size(17, 12);
+            this.aoiTopText.TabIndex = 14;
+            this.aoiTopText.Text = "高";
             // 
-            // label7
+            // aoiRightText
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(116, 389);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(17, 12);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "右";
+            this.aoiRightText.AutoSize = true;
+            this.aoiRightText.Location = new System.Drawing.Point(116, 389);
+            this.aoiRightText.Name = "aoiRightText";
+            this.aoiRightText.Size = new System.Drawing.Size(17, 12);
+            this.aoiRightText.TabIndex = 16;
+            this.aoiRightText.Text = "右";
             // 
-            // label8
+            // aoiBottomText
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(65, 441);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(17, 12);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "低";
+            this.aoiBottomText.AutoSize = true;
+            this.aoiBottomText.Location = new System.Drawing.Point(65, 441);
+            this.aoiBottomText.Name = "aoiBottomText";
+            this.aoiBottomText.Size = new System.Drawing.Size(17, 12);
+            this.aoiBottomText.TabIndex = 18;
+            this.aoiBottomText.Text = "低";
             // 
             // aoiBottom
             // 
@@ -221,14 +221,14 @@
             0,
             0});
             // 
-            // label9
+            // aoiLeftText
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 389);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(17, 12);
-            this.label9.TabIndex = 20;
-            this.label9.Text = "左";
+            this.aoiLeftText.AutoSize = true;
+            this.aoiLeftText.Location = new System.Drawing.Point(17, 389);
+            this.aoiLeftText.Name = "aoiLeftText";
+            this.aoiLeftText.Size = new System.Drawing.Size(17, 12);
+            this.aoiLeftText.TabIndex = 20;
+            this.aoiLeftText.Text = "左";
             // 
             // aoiTop
             // 
@@ -352,20 +352,20 @@
             this.Controls.Add(this.aoiReset);
             this.Controls.Add(this.aoiSet);
             this.Controls.Add(this.aoiTop);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.aoiLeftText);
+            this.Controls.Add(this.aoiBottomText);
             this.Controls.Add(this.aoiBottom);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.aoiRightText);
+            this.Controls.Add(this.aoiTopText);
+            this.Controls.Add(this.AOIText);
+            this.Controls.Add(this.triggerModeText);
             this.Controls.Add(this.triggerMode);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pixelDepthText);
             this.Controls.Add(this.pixelDepth);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.frameRateText);
             this.Controls.Add(this.rollShutter);
             this.Controls.Add(this.gobalShutter);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.shutterModeText);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
@@ -386,20 +386,20 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label shutterModeText;
         private System.Windows.Forms.RadioButton gobalShutter;
         private System.Windows.Forms.RadioButton rollShutter;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label frameRateText;
         private System.Windows.Forms.ComboBox pixelDepth;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label pixelDepthText;
+        private System.Windows.Forms.Label triggerModeText;
         private System.Windows.Forms.ComboBox triggerMode;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label AOIText;
+        private System.Windows.Forms.Label aoiTopText;
+        private System.Windows.Forms.Label aoiRightText;
+        private System.Windows.Forms.Label aoiBottomText;
         private System.Windows.Forms.NumericUpDown aoiBottom;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label aoiLeftText;
         private System.Windows.Forms.NumericUpDown aoiTop;
         private System.Windows.Forms.Button aoiSet;
         private System.Windows.Forms.Button aoiReset;
