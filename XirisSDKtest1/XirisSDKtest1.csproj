@@ -45,8 +45,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="XirisWeldSDK">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Xiris Automation Inc\Xiris Weld SDK\bin\XirisWeldSDK.dll</HintPath>
+    <Reference Include="XirisWeldSDK, Version=1.0.3.25435, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Xiris Automation Inc\Xiris Weld SDK\bin\XirisWeldSDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

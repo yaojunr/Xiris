@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Threading;
 using System.IO;
 using XirisWeldSDK;
 
@@ -19,7 +19,9 @@ namespace XirisSDKtest1
        // Camera _camera;
         static int i = 1;
         static int n = 0;
-        static bool picSave = false;
+        //static bool picSave = false;
+        static Semaphore picSave = new Semaphore(0, 1);
+        static Semaphore setting = new Semaphore(1, 1);
         public Form1()
         {
             InitializeComponent();
@@ -94,7 +96,7 @@ namespace XirisSDKtest1
              
             
             string picName = strMD+ "," + i + ".bmp";
-            if (picSave)
+            if (picSave.WaitOne())
             {
                 try
                 {
@@ -111,6 +113,8 @@ namespace XirisSDKtest1
                 {
                     Console.WriteLine(error.Message);
                 }
+
+                picSave.Release();
                 
             }
             
@@ -121,53 +125,63 @@ namespace XirisSDKtest1
         //Save function
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (!picSave)
+
+            if (saveButton.Text == "Save")
             {
-                picSave = true;
+                picSave.Release();
                 saveButton.Text = "Stop";
             }
-            else { picSave = false; saveButton.Text = "Save"; }
+            else { picSave.WaitOne(); saveButton.Text = "Save"; }
         }
 
         private void gobalShutter_CheckedChanged(object sender, EventArgs e)
         {
+            setting.WaitOne();
             rollShutter.Checked = false;
             if (_camera != null && _camera.IsConnected)
                 _camera.ShutterMode = Camera.ShutterModes.Global;
             else gobalShutter.Checked = false;
+            setting.Release();
         }
 
         private void rollShutter_CheckedChanged(object sender, EventArgs e)
         {
+            setting.WaitOne();
             gobalShutter.Checked = false;
             if (_camera != null && _camera.IsConnected)
                 _camera.ShutterMode = Camera.ShutterModes.Rolling;
             else rollShutter.Checked = false;
+            setting.Release();
         }
 
         private void frameRate_ValueChanged(object sender, EventArgs e)
         {
             int fps = (int)frameRate.Value;
+            setting.WaitOne();
             if (_camera != null && _camera.IsConnected)
             { 
                 _camera.RollingFrameRate = fps;
                 rollShutter.Checked = true;
                 _camera.ShutterMode = Camera.ShutterModes.Rolling;
             }
+            setting.Release();
         }
 
         private void pixelDepth_SelectedIndexChanged(object sender, EventArgs e)
         {
+            setting.WaitOne();
             if (pixelDepth.Text == "8 bits")
                 if (_camera != null && _camera.IsConnected)
                     _camera.PixelDepth = Camera.PixelDepths.Bpp8;
             if (pixelDepth.Text == "12 bits")
                 if (_camera != null && _camera.IsConnected)
                     _camera.PixelDepth = Camera.PixelDepths.Bpp12;
+            setting.Release();
         }
 
         private void triggerMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            setting.WaitOne();
             if (pixelDepth.Text == "自由运行")
                 if (_camera != null && _camera.IsConnected)
                     _camera.TriggerMode = Camera.TriggerModes.FreeRunning;
@@ -177,19 +191,23 @@ namespace XirisSDKtest1
             if (pixelDepth.Text == "脉冲曝光")
                 if (_camera != null && _camera.IsConnected)
                     _camera.TriggerMode = Camera.TriggerModes.PulseWidthExposure;
+            setting.Release();
         }
 
         private void aoiSet_Click(object sender, EventArgs e)
         {
-           if (_camera != null && _camera.IsConnected)
-           {
+            setting.WaitOne();
+            if (_camera != null && _camera.IsConnected)
+            {
                _camera.AOI = new Rectangle((int)aoiLeft.Value, (int)aoiTop.Value, (int)aoiRight.Value - (int)aoiLeft.Value, (int)aoiBottom.Value - (int)aoiTop.Value);
 
-           }
+            }
+            setting.Release();
         }
 
         private void aoiReset_Click(object sender, EventArgs e)
         {
+            setting.WaitOne();
             if (_camera != null && _camera.IsConnected)
             {
                 _camera.AOI = new Rectangle(0,0,1280,1024);
@@ -198,6 +216,7 @@ namespace XirisSDKtest1
                 aoiRight.Value = 1280;
                 aoiBottom.Value = 1024;
             }
+            setting.Release();
         }
 
     }
