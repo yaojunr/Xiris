@@ -19,8 +19,8 @@ namespace XirisSDKtest1
        // Camera _camera;
         static int i = 1;
         static int n = 0;
-        //static bool picSave = false;
-        static Semaphore picSave = new Semaphore(0, 1);
+        static bool picSave = false;
+        static Semaphore picSaveSem = new Semaphore(0, 1);
         static Semaphore setting = new Semaphore(1, 1);
         public Form1()
         {
@@ -96,8 +96,9 @@ namespace XirisSDKtest1
              
             
             string picName = strMD+ "," + i + ".bmp";
-            if (picSave.WaitOne())
+            if (picSave)
             {
+                picSaveSem.WaitOne();
                 try
                 {
                     if (!File.Exists(picName))
@@ -114,7 +115,7 @@ namespace XirisSDKtest1
                     Console.WriteLine(error.Message);
                 }
 
-                picSave.Release();
+                picSaveSem.Release();
                 
             }
             
@@ -126,12 +127,13 @@ namespace XirisSDKtest1
         private void saveButton_Click(object sender, EventArgs e)
         {
 
-            if (saveButton.Text == "Save")
+            if (!picSave)
             {
-                picSave.Release();
+                picSave = true;
+                picSaveSem.Release();
                 saveButton.Text = "Stop";
             }
-            else { picSave.WaitOne(); saveButton.Text = "Save"; }
+            else { picSave = false; saveButton.Text = "Save"; picSaveSem.WaitOne(); }
         }
 
         private void gobalShutter_CheckedChanged(object sender, EventArgs e)
