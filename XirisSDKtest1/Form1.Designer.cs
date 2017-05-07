@@ -51,6 +51,7 @@
             this.aoiRight = new System.Windows.Forms.NumericUpDown();
             this.frameRate = new System.Windows.Forms.NumericUpDown();
             this.cameraReady = new System.Windows.Forms.Label();
+            this.picFormat = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aoiBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aoiTop)).BeginInit();
@@ -334,17 +335,33 @@
             this.cameraReady.AutoSize = true;
             this.cameraReady.Font = new System.Drawing.Font("SimSun", 12F);
             this.cameraReady.ForeColor = System.Drawing.Color.Red;
-            this.cameraReady.Location = new System.Drawing.Point(16, 557);
+            this.cameraReady.Location = new System.Drawing.Point(8, 557);
             this.cameraReady.Name = "cameraReady";
             this.cameraReady.Size = new System.Drawing.Size(136, 16);
             this.cameraReady.TabIndex = 28;
             this.cameraReady.Text = "camera not ready";
+            // 
+            // picFormat
+            // 
+            this.picFormat.FormattingEnabled = true;
+            this.picFormat.Items.AddRange(new object[] {
+            "bmp",
+            "jpg",
+            "png",
+            "gif"});
+            this.picFormat.Location = new System.Drawing.Point(92, 12);
+            this.picFormat.Name = "picFormat";
+            this.picFormat.Size = new System.Drawing.Size(57, 20);
+            this.picFormat.TabIndex = 29;
+            this.picFormat.Text = "jpg";
+            this.picFormat.SelectedIndexChanged += new System.EventHandler(this.picFormat_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1041, 592);
+            this.Controls.Add(this.picFormat);
             this.Controls.Add(this.cameraReady);
             this.Controls.Add(this.frameRate);
             this.Controls.Add(this.aoiRight);
@@ -407,6 +424,7 @@
         private System.Windows.Forms.NumericUpDown aoiRight;
         private System.Windows.Forms.NumericUpDown frameRate;
         private System.Windows.Forms.Label cameraReady;
+        private System.Windows.Forms.ComboBox picFormat;
     }
 }
 

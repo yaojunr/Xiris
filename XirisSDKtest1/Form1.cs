@@ -21,7 +21,8 @@ namespace XirisSDKtest1
         static int n = 0;
         static bool picSave = false;
         static Semaphore picSaveSem = new Semaphore(0, 1);
-        static Semaphore setting = new Semaphore(1, 1);
+        string pic_format_string=".jpg";
+        System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;
         public Form1()
         {
             InitializeComponent();
@@ -51,21 +52,13 @@ namespace XirisSDKtest1
                 _camera.BufferReady += _camera_BufferReady;
                 _camera.Start();
 
-                try
-                {
-                    cameraReady.Text = "camera ready";
-                    frameRate.Value = (decimal)_camera.RollingFrameRate;
+                cameraReady.Text = "camera ready";
+                frameRate.Value = (decimal)_camera.RollingFrameRate;
 
-                    if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
-                        pixelDepth.Text = "8 bits";
-                    if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
-                        pixelDepth.Text = "12 bits";
-                
-                }
-                catch (Exception error)
-                {
-                    Console.WriteLine(error.Message);
-                }
+                if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
+                    pixelDepth.Text = "8 bits";
+                if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
+                    pixelDepth.Text = "12 bits";
 
 
 
@@ -78,24 +71,12 @@ namespace XirisSDKtest1
         {
             pictureBox1.Image = e.Image;
             saveButton.Click += saveButton_Click;
-
-
-
-            /*switch (calculator % 300)
-            {
-                case 0: if (File.Exists("1.bmp")) { File.Delete("1.bmp"); e.Image.Dispose(); break; } e.Image.Save("1.bmp", System.Drawing.Imaging.ImageFormat.Bmp); calculator = 0; break;
-                case 100: if (File.Exists("2.bmp")) { File.Delete("2.bmp"); e.Image.Dispose(); break; } e.Image.Save("2.bmp", System.Drawing.Imaging.ImageFormat.Bmp); break;
-                case 200: if (File.Exists("3.bmp")) { File.Delete("3.bmp"); e.Image.Dispose(); break; } e.Image.Save("3.bmp", System.Drawing.Imaging.ImageFormat.Bmp); break;
-               // e.Buffer.
-            }
-            * 
-             */
             System.DateTime currentTime = new System.DateTime();
             currentTime = System.DateTime.Now;
             string strMD = currentTime.ToString("yyyy-M-d,HH-mm-ss");
              
             
-            string picName = strMD+ "," + i + ".bmp";
+            string picName = strMD+ "," + i + pic_format_string;
             if (picSave)
             {
                 picSaveSem.WaitOne();
@@ -104,9 +85,12 @@ namespace XirisSDKtest1
                     if (!File.Exists(picName))
                     {
                         Bitmap pic = new Bitmap(e.Image);
-                        pic.Save(picName, System.Drawing.Imaging.ImageFormat.Bmp);
-                        pic.Dispose();
+
+                        pic.Save(picName, format);
+      
+                        //pic.Dispose();
                         i++;
+                        
 
                     }
                 }
@@ -130,60 +114,60 @@ namespace XirisSDKtest1
             if (!picSave)
             {
                 picSave = true;
-                picSaveSem.Release();
                 saveButton.Text = "Stop";
+                picSaveSem.Release();
             }
             else { picSave = false; saveButton.Text = "Save"; picSaveSem.WaitOne(); }
         }
 
         private void gobalShutter_CheckedChanged(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             rollShutter.Checked = false;
             if (_camera != null && _camera.IsConnected)
                 _camera.ShutterMode = Camera.ShutterModes.Global;
             else gobalShutter.Checked = false;
-            setting.Release();
+            
         }
 
         private void rollShutter_CheckedChanged(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             gobalShutter.Checked = false;
             if (_camera != null && _camera.IsConnected)
                 _camera.ShutterMode = Camera.ShutterModes.Rolling;
             else rollShutter.Checked = false;
-            setting.Release();
+            
         }
 
         private void frameRate_ValueChanged(object sender, EventArgs e)
         {
             int fps = (int)frameRate.Value;
-            setting.WaitOne();
+            
             if (_camera != null && _camera.IsConnected)
             { 
                 _camera.RollingFrameRate = fps;
                 rollShutter.Checked = true;
                 _camera.ShutterMode = Camera.ShutterModes.Rolling;
             }
-            setting.Release();
+            
         }
 
         private void pixelDepth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             if (pixelDepth.Text == "8 bits")
                 if (_camera != null && _camera.IsConnected)
                     _camera.PixelDepth = Camera.PixelDepths.Bpp8;
             if (pixelDepth.Text == "12 bits")
                 if (_camera != null && _camera.IsConnected)
                     _camera.PixelDepth = Camera.PixelDepths.Bpp12;
-            setting.Release();
+            
         }
 
         private void triggerMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             if (pixelDepth.Text == "自由运行")
                 if (_camera != null && _camera.IsConnected)
                     _camera.TriggerMode = Camera.TriggerModes.FreeRunning;
@@ -193,23 +177,23 @@ namespace XirisSDKtest1
             if (pixelDepth.Text == "脉冲曝光")
                 if (_camera != null && _camera.IsConnected)
                     _camera.TriggerMode = Camera.TriggerModes.PulseWidthExposure;
-            setting.Release();
+            
         }
 
         private void aoiSet_Click(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             if (_camera != null && _camera.IsConnected)
             {
                _camera.AOI = new Rectangle((int)aoiLeft.Value, (int)aoiTop.Value, (int)aoiRight.Value - (int)aoiLeft.Value, (int)aoiBottom.Value - (int)aoiTop.Value);
 
             }
-            setting.Release();
+            
         }
 
         private void aoiReset_Click(object sender, EventArgs e)
         {
-            setting.WaitOne();
+            
             if (_camera != null && _camera.IsConnected)
             {
                 _camera.AOI = new Rectangle(0,0,1280,1024);
@@ -218,8 +202,26 @@ namespace XirisSDKtest1
                 aoiRight.Value = 1280;
                 aoiBottom.Value = 1024;
             }
-            setting.Release();
+            
         }
+
+        private void picFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (picFormat.Text == "bmp")
+            { 
+                pic_format_string = ".bmp"; 
+                format = System.Drawing.Imaging.ImageFormat.Bmp;
+          
+            }
+            if (picFormat.Text == "jpg")
+            { pic_format_string = ".jpg"; format = System.Drawing.Imaging.ImageFormat.Jpeg; }
+            if (picFormat.Text == "png")
+            { pic_format_string = ".png"; format = System.Drawing.Imaging.ImageFormat.Png; }
+            if (picFormat.Text == "gif")
+            { pic_format_string = ".gif"; format = System.Drawing.Imaging.ImageFormat.Gif; }
+        }
+
+
 
     }
 }
