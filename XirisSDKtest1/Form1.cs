@@ -21,6 +21,7 @@ namespace XirisSDKtest1
         static int n = 0;
         static bool picSave = false;
         static Semaphore picSaveSem = new Semaphore(0, 1);
+        static Semaphore setting = new Semaphore(1, 1);
         string pic_format_string=".jpg";
         System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;
         public Form1()
@@ -52,19 +53,11 @@ namespace XirisSDKtest1
                 _camera.BufferReady += _camera_BufferReady;
                 _camera.Start();
 
-                cameraReady.Text = "camera ready";
-                frameRate.Value = (decimal)_camera.RollingFrameRate;
 
-                if (_camera.PixelDepth == Camera.PixelDepths.Bpp8)
-                    pixelDepth.Text = "8 bits";
-                if (_camera.PixelDepth == Camera.PixelDepths.Bpp12)
-                    pixelDepth.Text = "12 bits";
-
-
-
-
-
-
+                _camera.RollingFrameRate = 5;
+                rollShutter.Checked = true;
+                _camera.ShutterMode = Camera.ShutterModes.Rolling;
+                
             }
         }
         void _camera_BufferReady(object sender, CameraBufferReadyEventArgs e)
@@ -88,7 +81,7 @@ namespace XirisSDKtest1
 
                         pic.Save(picName, format);
       
-                        //pic.Dispose();
+                        pic.Dispose();
                         i++;
                         
 
@@ -111,6 +104,7 @@ namespace XirisSDKtest1
         private void saveButton_Click(object sender, EventArgs e)
         {
 
+            setting.WaitOne();
             if (!picSave)
             {
                 picSave = true;
@@ -118,6 +112,8 @@ namespace XirisSDKtest1
                 picSaveSem.Release();
             }
             else { picSave = false; saveButton.Text = "Save"; picSaveSem.WaitOne(); }
+
+            setting.Release();
         }
 
         private void gobalShutter_CheckedChanged(object sender, EventArgs e)
@@ -220,6 +216,8 @@ namespace XirisSDKtest1
             if (picFormat.Text == "gif")
             { pic_format_string = ".gif"; format = System.Drawing.Imaging.ImageFormat.Gif; }
         }
+
+       
 
 
 
